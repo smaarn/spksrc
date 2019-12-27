@@ -1,12 +1,13 @@
 SPK_NAME = homeassistant
 SPK_VERS = 0.87.1
-SPK_REV = 3
+SPK_REV = 4
 SPK_ICON = src/${SPK_NAME}.png
 
 BUILD_DEPENDS = cross/python3 cross/setuptools cross/pip cross/wheel
 DEPENDS = cross/cffi cross/nmap  # for python-libnmap
 DEPENDS += cross/gmp cross/mpfr cross/mpc  # for gmpy2
 WHEELS = src/requirements.txt
+PIP_WHEEL_ADDITIONAL_OPTIONS =  --no-use-pep517
 SPK_DEPENDS = "python3>=3.6.8"
 
 MAINTAINER = ymartin59
