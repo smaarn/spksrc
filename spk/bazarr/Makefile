@@ -3,7 +3,7 @@ SPK_NAME = bazarr
 BAZARR_VERSION = 0.8.4
 
 SPK_VERS = $(BAZARR_VERSION)
-SPK_REV = 1
+SPK_REV = 2
 
 SPK_ICON = src/bazarr.png
 
@@ -24,7 +24,7 @@ DESCRIPTION = "Bazarr is a companion application to Sonarr and Radarr. It manage
 RELOAD_UI = no
 DISPLAY_NAME = Bazarr
 STARTABLE = yes
-CHANGELOG = "Initial release"
+CHANGELOG = "Added missing initial SQL DB creation script."
 
 HOMEPAGE = https://www.bazarr.media
 LICENSE = GPLv3

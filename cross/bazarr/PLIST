@@ -1,7 +1,7 @@
 rsc:share/bazarr/LICENSE
 rsc:share/bazarr/___init__.py
 bin:share/bazarr/bazarr.py
-rsc:share/bazarr/bazarr/*.py
+rsc:share/bazarr/bazarr/*
 bin:share/bazarr/bin/Linux/**
 rsc:share/bazarr/libs/**
 rsc:share/bazarr/libs3/**
