@@ -27,13 +27,6 @@ start_daemon ()
 
 stop_daemon ()
 {
-    local current_pid
-    local children_processes
-    current_pid=$(cat "${PID_FILE}");
-    children_processes=$(ps --ppid "${current_pid}" -o pid=,user= | grep -E " ${USER}\$" | sed '/^[[:space:]]*$/d' | cut -d ' ' -f 1 )
-    if [ ! -z "${children_processes}" ]; then 
-        kill ${children_processes}; 
-    fi; 
     start-stop-daemon -u "${USER}" -K -q -p "${PID_FILE}" -x "${PYTHON}"
     wait_for_status 1 20 || start-stop-daemon -K -s 9 -q -p "${PID_FILE}" -x "${PYTHON}"
 }
