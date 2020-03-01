@@ -1,9 +1,9 @@
 SPK_NAME = bazarr
 
-BAZARR_VERSION = 0.8.4.1
+BAZARR_VERSION = 0.8.4.2
 
 SPK_VERS = $(BAZARR_VERSION)
-SPK_REV = 2
+SPK_REV = 1
 
 SPK_ICON = src/bazarr.png
 
