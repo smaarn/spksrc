@@ -1,13 +1,9 @@
 SPK_NAME = bazarr
 
-BAZARR_VERSION = 0.8.4.2
-
-SPK_VERS = $(BAZARR_VERSION)
-SPK_REV = 2
+SPK_VERS = 0.8.4.2
+SPK_REV = 3
 
 SPK_ICON = src/bazarr.png
-
-REQUIRED_DSM = 6.1
 
 BUILD_DEPENDS = cross/python3 cross/setuptools cross/wheel
 
