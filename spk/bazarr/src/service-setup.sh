@@ -17,29 +17,30 @@ GROUP="sc-download"
 service_postinst ()
 {
     # Link
-    ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR};
+    ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR} >> "${INST_LOG}" 2>&1
 
-    mkdir -p "${VAR_DIR}/data";
+    mkdir -p "${VAR_DIR}/data"  >> "${INST_LOG}" 2>&1
     
-    set_unix_permissions "${VAR_DIR}" >> "${INST_LOG}"
+    set_unix_permissions "${VAR_DIR}" >> "${INST_LOG}" 2>&1
     
-    set_unix_permissions "${VAR_DIR}/data" >> "${INST_LOG}"
+    set_unix_permissions "${VAR_DIR}/data" >> "${INST_LOG}" 2>&1
 
-    echo "Setting up python installation..."  >> "${INST_LOG}"
+    echo "Setting up python installation..."  >> "${INST_LOG}" 2>&1
 
     # Create a Python virtualenv
-    "${PYTHON3}" -m venv --system-site-packages ${INSTALL_DIR}/env >> "${INST_LOG}"
+    "${PYTHON3}" -m venv --system-site-packages ${INSTALL_DIR}/env >> "${INST_LOG}" 2>&1
 
     # Install the wheels
 
-    echo "Installing python requirements..."  >> "${INST_LOG}"
+    echo "Installing python requirements..."  >> "${INST_LOG}" 2>&1
 
     ${INSTALL_DIR}/env/bin/pip install \
         --no-deps --no-index -U --force-reinstall \
-        -f ${INSTALL_DIR}/share/wheelhouse ${INSTALL_DIR}/share/wheelhouse/*.whl >> "${INST_LOG}"
+        -f ${INSTALL_DIR}/share/wheelhouse ${INSTALL_DIR}/share/wheelhouse/*.whl >> "${INST_LOG}" 2>&1
 
-    echo "Running busybox installation..."  >> "${INST_LOG}"
+    echo "Running busybox installation..."  >> "${INST_LOG}" 2>&1
 
     # Install busybox
-    ${PYTHON_DIR}/bin/busybox --install ${INSTALL_DIR}/bin
+    ${PYTHON_DIR}/bin/busybox --install ${INSTALL_DIR}/bin >> "${INST_LOG}" 2>&1
+
 }
