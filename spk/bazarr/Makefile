@@ -1,7 +1,7 @@
 SPK_NAME = bazarr
 
 SPK_VERS = 0.8.4.2
-SPK_REV = 3
+SPK_REV = 4
 
 SPK_ICON = src/bazarr.png
 
@@ -10,6 +10,8 @@ BUILD_DEPENDS = cross/python3 cross/setuptools cross/wheel
 BETA = 1
 
 DEPENDS = cross/$(SPK_NAME)
+DEPENDS += cross/unrar
+DEPENDS += cross/ffmpeg
 
 WHEELS = 
 SPK_DEPENDS = "python3>=3.6"
@@ -31,7 +33,14 @@ SSS_SCRIPT    = src/dsm-control.sh
 SERVICE_PORT  = 6767
 SERVICE_PORT_TITLE = $(DISPLAY_NAME)
 
+POST_DEPEND_TARGET = trim_bazarr_bin_directories
+
 # Admin link for in DSM UI
 ADMIN_PORT = $(SERVICE_PORT)
 
 include ../../mk/spksrc.spk.mk
+
+.PHONY: trim_bazarr_bin_directories
+trim_bazarr_bin_directories:
+# The binaries will actually be taken from the cross packages
+	rm -rf $(STAGING_INSTALL_PREFIX)/share/bazarr/bin
