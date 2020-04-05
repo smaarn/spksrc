@@ -7,10 +7,11 @@ DNAME="Bazarr"
 # Others
 INSTALL_DIR="/usr/local/${PACKAGE}"
 PYTHON_DIR="/usr/local/python3"
+FFMPEG_DIR="/usr/local/ffmpeg"
 BAZARR_DIR="${INSTALL_DIR}/share/${PACKAGE}"
 VAR_DIR="${INSTALL_DIR}/var";
 
-export PATH="${INSTALL_DIR}/bin:${PYTHON_DIR}/bin:${PATH}"
+export PATH="${INSTALL_DIR}/bin:${PYTHON_DIR}/bin:${FFMPEG_DIR}/bin:${PATH}"
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 
