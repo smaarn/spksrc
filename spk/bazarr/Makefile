@@ -1,7 +1,7 @@
 SPK_NAME = bazarr
 
 SPK_VERS = 0.8.4.2
-SPK_REV = 4
+SPK_REV = 5
 
 SPK_ICON = src/bazarr.png
 
@@ -11,10 +11,9 @@ BETA = 1
 
 DEPENDS = cross/$(SPK_NAME)
 DEPENDS += cross/unrar
-DEPENDS += cross/ffmpeg
 
 WHEELS = 
-SPK_DEPENDS = "python3>=3.6"
+SPK_DEPENDS = "python3>=3.6:ffmpeg"
 
 MAINTAINER = SynoCommunity
 
@@ -22,7 +21,7 @@ DESCRIPTION = "Bazarr is a companion application to Sonarr and Radarr. It manage
 RELOAD_UI = no
 DISPLAY_NAME = Bazarr
 STARTABLE = yes
-CHANGELOG = "Corrected shebang of python scripts."
+CHANGELOG = "Prefer depending on ffmpeg package instead of bundling it."
 
 HOMEPAGE = https://www.bazarr.media
 LICENSE = GPLv3
