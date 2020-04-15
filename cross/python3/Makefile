@@ -98,3 +98,4 @@ $(WORK_DIR)/python-cc.mk:
 	@echo PYTHON_INC_DIR=$(PYTHON_INC_DIR) >> $@
 	@echo PIP=$(PIP_NATIVE) >> $@
 	@echo CROSS_COMPILE_WHEELS=1 >> $@
+	@echo TARGET_EXT_SUFFIX=$(shell $(PYTHON_NATIVE) -c "from distutils.sysconfig import parse_makefile; print(parse_makefile('$(WORK_DIR)/Python-$(PKG_VERS)/Makefile')['EXT_SUFFIX']);") >> $@
