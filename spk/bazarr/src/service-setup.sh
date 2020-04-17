@@ -25,19 +25,6 @@ service_postinst ()
     
     set_unix_permissions "${VAR_DIR}/data" >> "${INST_LOG}" 2>&1
 
-    echo "Setting up python installation..."  >> "${INST_LOG}" 2>&1
-
-    # Create a Python virtualenv
-    "${PYTHON3}" -m venv --system-site-packages ${INSTALL_DIR}/env >> "${INST_LOG}" 2>&1
-
-    # Install the wheels
-
-    echo "Installing python requirements..."  >> "${INST_LOG}" 2>&1
-
-    ${INSTALL_DIR}/env/bin/pip install \
-        --no-deps --no-index -U --force-reinstall \
-        -f ${INSTALL_DIR}/share/wheelhouse ${INSTALL_DIR}/share/wheelhouse/*.whl >> "${INST_LOG}" 2>&1
-
     echo "Running busybox installation..."  >> "${INST_LOG}" 2>&1
 
     # Install busybox

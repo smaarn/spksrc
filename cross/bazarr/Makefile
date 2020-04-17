@@ -1,13 +1,11 @@
 PKG_NAME = bazarr
 
-PKG_VERS = 0.8.4.2
+PKG_VERS = 0.8.4.3
 PKG_EXT = tar.gz
 PKG_DIST_NAME = v$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_FILE = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://github.com/morpheus65535/bazarr/archive
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
-
-DEPENDS = cross/lxml
 
 CONFIGURE_TARGET = nop
 COMPILE_TARGET = nop
