@@ -37,9 +37,9 @@ install_python_wheel: $(WHEEL_TARGET)
 	@if [ -d "$(WORK_DIR)/wheelhouse" ] ; then \
 		mkdir -p $(STAGING_INSTALL_PREFIX)/share/wheelhouse ; \
 		cd $(WORK_DIR)/wheelhouse && \
-		for w in *.whl; do \
-			cp -f $$w $(STAGING_INSTALL_PREFIX)/share/wheelhouse/`echo $$w | cut -d"-" -f -3`-none-any.whl; \
-		done ; \
+		  for w in *.whl; do \
+		    cp -f $$w $(STAGING_INSTALL_PREFIX)/share/wheelhouse/`echo $$w | cut -d"-" -f -3`-none-any.whl; \
+		  done ; \
 	fi
 
 all: install
