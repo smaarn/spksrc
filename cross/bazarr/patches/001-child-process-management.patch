@@ -1,0 +1,51 @@
+Adapting https://github.com/morpheus65535/bazarr/pull/999 to the 0.8.4.4 code
+
+---
+diff --git bazarr.py bazarr.py
+index f9e5d1c3..a3e17189 100644
+--- bazarr.py
++++ bazarr.py
+@@ -2,6 +2,7 @@
+ 
+ import os
+ import platform
++import signal
+ import subprocess
+ import sys
+ import time
+@@ -31,10 +32,24 @@ check_python_version()
+ dir_name = os.path.dirname(__file__)
+ 
+ 
++def end_child_process(ep):
++    try:
++        ep.kill()
++    except:
++        pass
++
++def terminate_child_process(ep):
++    try:
++        ep.terminate()
++    except:
++        pass
++
++
+ def start_bazarr():
+     script = [sys.executable, "-u", os.path.normcase(os.path.join(dir_name, 'bazarr', 'main.py'))] + sys.argv[1:]
+     ep = subprocess.Popen(script, stdout=None, stderr=None, stdin=subprocess.DEVNULL)
+-    atexit.register(lambda: ep.kill())
++    atexit.register(end_child_process, ep=ep)
++    signal.signal(signal.SIGTERM, lambda signal_no, frame: terminate_child_process(ep))
+ 
+ 
+ def check_status():
+@@ -84,5 +99,7 @@ if __name__ == '__main__':
+                 time.sleep(5)
+             else:
+                 os.wait()
+-        except (KeyboardInterrupt, SystemExit):
+-            pass
++                time.sleep(1)
++        except (KeyboardInterrupt, SystemExit, ChildProcessError):
++            print('Bazarr exited.')
++            sys.exit(0)
