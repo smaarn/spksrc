@@ -103,6 +103,7 @@ jobs:
       - name: Build Status
         # We need this status since we don't want to stop the build on errors.
         # Here we fail on build errors found in the build error file.
+        uses: docker://synocommunity/spksrc:latest
         with:
           entrypoint: ./.github/actions/build_status.sh
         env:
