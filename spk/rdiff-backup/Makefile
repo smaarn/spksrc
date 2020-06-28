@@ -5,9 +5,12 @@ SPK_ICON = src/rdiff-backup.png
 
 BUILD_DEPENDS = cross/python3
 DEPENDS = cross/librsync cross/attr cross/acl
+DEPENDS += cross/pylibacl
+DEPENDS += cross/pyxattr
+
 WHEELS = src/requirements.txt
 
-SPK_DEPENDS = "python3>=3.7.7"
+SPK_DEPENDS = "python3>=3.7"
 
 MAINTAINER = SynoCommunity
 DESCRIPTION = Reverse differential backup tool, over a network or locally.

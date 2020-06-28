@@ -5,6 +5,10 @@ service_postinst ()
     # Create a Python virtualenv
     ${VIRTUALENV} ${SYNOPKG_PKGDEST}/env  >> ${INST_LOG} 2>&1
 
+    # Copy manually cross compiled python libraries which are basically wheel contents
+    mkdir -p "${SYNOPKG_PKGDEST}/env/lib/" >> ${INST_LOG} 2>&1
+    cp -p -r -v "${SYNOPKG_PKGDEST}/lib/python"* "${SYNOPKG_PKGDEST}/env/lib/" >> ${INST_LOG} 2>&1
+
     # Install the wheels
     ${SYNOPKG_PKGDEST}/env/bin/pip3 install --no-deps --no-index -U --force-reinstall -f ${SYNOPKG_PKGDEST}/share/wheelhouse ${SYNOPKG_PKGDEST}/share/wheelhouse/*.whl   >> ${INST_LOG} 2>&1
 
