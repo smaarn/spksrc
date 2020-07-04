@@ -31,7 +31,7 @@ PIP_NATIVE = $(WORK_DIR)/../../../native/$(PKG_NAME)/work-native/install/usr/loc
 nativepython3_post_install: $(WORK_DIR)/python-native.mk
 	@$(MSG) Installing pip, setuptools, cffi and cross env
 	@$(RUN) wget https://bootstrap.pypa.io/get-pip.py -O - | $(PYTHON)
-	@$(PIP) install "setuptools==44.0.0"
+	@$(PIP) install "setuptools==44.1.0"
 	@$(PIP) install "cffi==1.14.0"
 	@$(PIP) install "crossenv==0.7"
 
