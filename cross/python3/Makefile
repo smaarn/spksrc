@@ -89,10 +89,10 @@ python3_post_install: $(WORK_DIR)/python-cc.mk
 	mkdir -p $(PYTHON_LIB_CROSS)
 	cp -R $(HOSTPYTHON_LIB_NATIVE) $(PYTHON_LIB_CROSS)/../
 	@$(RUN) $(PYTHON_NATIVE) -m crossenv $(STAGING_INSTALL_PREFIX)/bin/python$(PKG_VERS_MAJOR).$(PKG_VERS_MINOR) $(WORK_DIR)/crossenv/
-	. $(WORKDIR)/crossenv/bin/activate && $(RUN) wget https://bootstrap.pypa.io/get-pip.py -O - | build-python
-	. $(WORKDIR)/crossenv/bin/activate && $(RUN) wget https://bootstrap.pypa.io/get-pip.py -O - | python
-	. $(WORKDIR)/crossenv/bin/activate && build-pip install "setuptools==44.1.0"
-	. $(WORKDIR)/crossenv/bin/activate && pip install "setuptools==44.1.0"
+	. $(WORK_DIR)/crossenv/bin/activate && $(RUN) wget https://bootstrap.pypa.io/get-pip.py -O - | build-python
+	. $(WORK_DIR)/crossenv/bin/activate && $(RUN) wget https://bootstrap.pypa.io/get-pip.py -O - | python
+	. $(WORK_DIR)/crossenv/bin/activate && build-pip install "setuptools==44.1.0"
+	. $(WORK_DIR)/crossenv/bin/activate && pip install "setuptools==44.1.0"
 ifneq ($(PYTHON_LIB_NATIVE),$(PYTHON_LIB_CROSS))
 	cp $(PYTHON_LIB_CROSS)/_sysconfigdata_*.py $(PYTHON_LIB_NATIVE)/_sysconfigdata.py
 endif
