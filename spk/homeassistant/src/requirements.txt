@@ -13,7 +13,7 @@ Jinja2>=2.10
 PyJWT==1.6.4
 
 ed25519
-
+pip>=8.0.3
 pytz>=2018.9
 pyyaml>=3.13,<4
 requests==2.21.0
