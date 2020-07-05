@@ -9,7 +9,7 @@
 
 ## Cross-compiled via spksrc.wheel.mk
 markupsafe==1.1.1
-#psutil==5.7.0
+psutil==5.7.0
 sqlalchemy==1.3.13
 zope.interface==4.7.1
 
