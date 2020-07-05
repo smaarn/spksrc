@@ -10,6 +10,7 @@ DEPENDS += cross/cffi cross/bcrypt cross/sqlite
 # Cross-compiled wheels
 DEPENDS += cross/lxml cross/pycrypto cross/pycurl cross/pyyaml
 DEPENDS += cross/msgpack-python cross/ruamel.yaml cross/immutables
+DEPENDS += cross/cryptography
 
 WHEELS = src/requirements.txt
 
