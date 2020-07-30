@@ -34,6 +34,7 @@ nativepython3_post_install: $(WORK_DIR)/python-native.mk
 	@$(PIP) install "setuptools==44.1.0"
 	@$(PIP) install "cffi==1.14.0"
 	@$(PIP) install "crossenv==0.7"
+	@$(PIP) install "cython==0.29.21"
 
 $(WORK_DIR)/python-native.mk:
 	@echo PIP=$(PIP_NATIVE) >> $@
