@@ -40,6 +40,8 @@ phue>=1.1
 ledcontroller>=1.3.0
 python-libnmap>=0.7.0
 
+hass-nabucasa==0.35.0
+
 # homeassistant.components.nuimo_controller
 #--only-binary=all nuimo==0.1.0
 
@@ -1381,7 +1383,7 @@ python-wink==1.10.5
 # homeassistant.components.recorder
 # homeassistant.scripts.db_migrator
 # homeassistant.components.sensor.sql
-#sqlalchemy==1.2.10
+sqlalchemy==1.3.18
 
 # homeassistant.components.statsd
 #statsd==3.2.1
