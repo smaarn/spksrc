@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source "/usr/local/tt-rss/bin/php-settings.sh"
+
+"${php}" -c "${php_configuration_file}" $(compute_php_options) $*
