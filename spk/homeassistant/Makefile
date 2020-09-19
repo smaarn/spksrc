@@ -7,6 +7,7 @@ BUILD_DEPENDS = cross/python3 cross/setuptools cross/pip cross/wheel cross/bcryp
 DEPENDS = cross/nmap  # for python-libnmap
 DEPENDS += cross/gmp cross/mpfr cross/mpc  # for gmpy2
 DEPENDS += cross/libyaml cross/bcrypt cross/cryptography
+DEPENDS += cross/PyNaCl # for mobile_app
 WHEELS = src/requirements.txt
 SPK_DEPENDS = "python3>=3.7.7"
 
