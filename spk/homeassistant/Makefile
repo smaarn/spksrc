@@ -4,6 +4,7 @@ SPK_REV = 8
 SPK_ICON = src/${SPK_NAME}.png
 
 BUILD_DEPENDS = cross/python3 cross/setuptools cross/pip cross/wheel cross/bcrypt
+BUILD_DEPENDS += cross/poetry
 DEPENDS = cross/nmap  # for python-libnmap
 DEPENDS += cross/gmp cross/mpfr cross/mpc  # for gmpy2
 DEPENDS += cross/libyaml cross/bcrypt cross/cryptography
