@@ -1083,7 +1083,7 @@ pysnmp==4.4.12
 #pystride==0.1.7
 
 # homeassistant.components.sensor.syncthru
-#pysyncthru==0.3.1
+pysyncthru==0.5.0
 
 # homeassistant.components.media_player.liveboxplaytv
 #pyteleloisirs==3.4
