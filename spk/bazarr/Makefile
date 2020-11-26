@@ -1,6 +1,6 @@
 SPK_NAME = bazarr
 
-SPK_VERS = 0.9.0.6
+SPK_VERS = 0.9.0.7
 SPK_REV = 1
 
 SPK_ICON = src/bazarr.png
@@ -28,7 +28,7 @@ SERVICE_SETUP = src/service-setup.sh
 
 SERVICE_PORT  = 6767
 SERVICE_PORT_TITLE = $(DISPLAY_NAME)
-SERVICE_COMMAND = /usr/local/$(SPK_NAME)/bin/bazarr-daemon
+SERVICE_COMMAND = /var/packages/$(SPK_NAME)/target/bin/$(SPK_NAME)-daemon
 # Admin link for in DSM UI
 ADMIN_PORT = $(SERVICE_PORT)
 
