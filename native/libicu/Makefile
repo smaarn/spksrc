@@ -12,5 +12,6 @@ COMMENT  = International Components for Unicode
 LICENSE  = http://www.unicode.org/copyright.html#License
 
 GNU_CONFIGURE = 1
+ADDITIONAL_CPPFLAGS = -std=c++11
 
 include ../../mk/spksrc.native-cc.mk
