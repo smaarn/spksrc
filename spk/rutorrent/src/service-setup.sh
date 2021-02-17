@@ -45,9 +45,14 @@ service_preinst ()
 
 check_acl()
 {
-    acl_path=$1
-    acl_user=$2
-    acl_permissions=$(synoacltool -get-perm ${acl_path} ${acl_user} | awk -F'Final permission: ' 'NF > 1  {print $2}' | tr -d '[] ')
+    local acl_path=$1
+    local acl_user=$2
+    local raw_acl_permissions=$(synoacltool -get-perm ${acl_path} ${acl_user} 2>/dev/null)
+    # The above command would error if it's a folder in "linux" mode.
+    if [ $? ]; then
+        return 1
+    fi
+    acl_permissions=$(echo "${raw_acl_permissions}" | awk -F'Final permission: ' 'NF > 1  {print $2}' | tr -d '[] ')
     if [ -z "${acl_permissions}" -o "${acl_permissions}" = "-------------" ]; then
         return 1
     else
@@ -61,8 +66,8 @@ fix_shared_folders_rights()
     local folder=$1
     echo "Fixing shared folder rights for ${folder}" >> "${INST_LOG}"
 
-    # Delete any previous ACL to limite duplicates
-    synoacltool -del "${folder}" >> "${INST_LOG}" 2>&1
+    # Delete any previous ACL to limit duplicates if, and only if, there are ACLs
+    synoacltool -get "${folder}" >/dev/null 2>&1 && synoacltool -del "${folder}" >> "${INST_LOG}" 2>&1
 
     # Set default user to sc-rutorrent and group to http
     chown -R "${EFF_USER}:${APACHE_USER}" "${folder}" >> "${INST_LOG}" 2>&1
