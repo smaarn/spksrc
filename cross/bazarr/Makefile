@@ -15,6 +15,7 @@ DEPENDS = cross/unrar
 DEPENDS += cross/numpy
 DEPENDS += cross/webrtcvad
 DEPENDS += cross/gevent
+DEPENDS += cross/gevent-websocket
 
 HOMEPAGE = https://www.bazarr.media
 LICENSE = GPLv3
