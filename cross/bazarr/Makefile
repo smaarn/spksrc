@@ -14,6 +14,7 @@ INSTALL_TARGET = bazarr_custom_install
 DEPENDS = cross/unrar
 DEPENDS += cross/numpy
 DEPENDS += cross/webrtcvad
+DEPENDS += cross/gevent
 
 HOMEPAGE = https://www.bazarr.media
 LICENSE = GPLv3
