@@ -14,7 +14,7 @@ INSTALL_TARGET = bazarr_custom_install
 DEPENDS = cross/unrar
 DEPENDS += cross/numpy
 DEPENDS += cross/webrtcvad
-DEPENDS += cross/gevent
+DEPENDS += cross/gevent-21
 DEPENDS += cross/gevent-websocket
 
 HOMEPAGE = https://www.bazarr.media
