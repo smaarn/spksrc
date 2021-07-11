@@ -5,7 +5,7 @@ PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://files.pythonhosted.org/packages/source/g/$(PKG_NAME)
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
-DEPENDS = cross/gevent
+DEPENDS = cross/gevent-21
 
 HOMEPAGE = https://www.gitlab.com/noppo/gevent-websocket
 COMMENT  = Websocket handler for the gevent pywsgi server, a Python network library
