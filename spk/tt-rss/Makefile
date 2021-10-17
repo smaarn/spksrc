@@ -12,7 +12,7 @@ DESCRIPTION_FRE = Tiny Tiny RSS est un agrégateur et lecteur web de flux RSS et
 ADMIN_URL = /tt-rss/
 RELOAD_UI = yes
 DISPLAY_NAME = Tiny Tiny RSS
-CHANGELOG = "1. Update Tiny Tiny RSS to Git revision 36e174750e (20210902) <br /> 2. Migrated to Maria DB 10 <br /> 3. Fixed installation procedures"
+CHANGELOG = "1. Update Tiny Tiny RSS to Git revision 36e174750e (20210902) <br /> 2. Migrated to Maria DB 10 and add support for DSM 7 <br /> 3. Fixed installation procedures"
 
 HOMEPAGE   = https://tt-rss.org/
 LICENSE    = GPL
