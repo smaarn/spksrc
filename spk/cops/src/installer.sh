@@ -6,9 +6,14 @@ DNAME="COPS"
 PACKAGE_NAME="com.synocommunity.packages.${PACKAGE}"
 
 # Others
-INSTALL_DIR="/usr/local/${PACKAGE}"
+INSTALL_DIR="/var/packages/${PACKAGE}"
 DEFAULT_CFG_FILE="/usr/local/${PACKAGE}/config_local.php.synology"
-WEB_DIR="/var/services/web"
+DSM6_WEB_DIR="/var/services/web"
+if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -ge 7 ]; then
+   WEB_DIR="/var/services/web_packages"
+else
+   WEB_DIR="${DSM6_WEB_DIR}"
+fi
 CFG_FILE="${WEB_DIR}/${PACKAGE}/config_local.php"
 TMP_DIR="${SYNOPKG_PKGDEST}/../../@tmp"
 BUILDNUMBER="$(/bin/get_key_value /etc.defaults/VERSION buildnumber)"
@@ -53,30 +58,34 @@ preinst ()
 
 postinst ()
 {
-    # Link
-    ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
-
-    # Install the web interface
-    cp -pR ${INSTALL_DIR}/share/${PACKAGE} ${WEB_DIR}
-
-
-    # Configure open_basedir
-    if [ "${USER}" == "nobody" ]; then
-        echo -e "<Directory \"${WEB_DIR}/${PACKAGE}\">\nphp_admin_value open_basedir none\n</Directory>" > /usr/syno/etc/sites-enabled-user/${PACKAGE}.conf
-    else
-        echo -e "[PATH=${WEB_DIR}/${PACKAGE}]\nopen_basedir = Null" > ${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini
-    fi
+      if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
+        # Link
+        ln -s "${SYNOPKG_PKGDEST}" "${INSTALL_DIR}"
+    
+        # Install the web interface
+        cp -pR "${INSTALL_DIR}/share/${PACKAGE}" "${WEB_DIR}"
+    
+    
+        # Configure open_basedir
+        if [ "${USER}" == "nobody" ]; then
+            echo -e "<Directory \"${WEB_DIR}/${PACKAGE}\">\nphp_admin_value open_basedir none\n</Directory>" > /usr/syno/etc/sites-enabled-user/${PACKAGE}.conf
+        else
+            echo -e "[PATH=${WEB_DIR}/${PACKAGE}]\nopen_basedir = Null" > ${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini
+        fi
+      fi
 
     if [ "${SYNOPKG_PKG_STATUS}" == "INSTALL" ]; then
         # Create a default configuration file
         if [ ! -f ${CFG_FILE} ]; then
-          cp ${DEFAULT_CFG_FILE} ${CFG_FILE}
+          cp "${DEFAULT_CFG_FILE}" "${CFG_FILE}"
           url_rewriting=$([ "${wizard_use_url_rewriting}" == "true" ] && echo "1" || echo "0")
           sed -i -e "s|@calibre_dir@|${wizard_calibre_dir:=/volume1/calibre/}|g" ${CFG_FILE}
           sed -i -e "s|@cops_title@|${wizard_cops_title:=COPS}|g" ${CFG_FILE}
           sed -i -e "s|@use_url_rewriting@|${url_rewriting:=0}|g" ${CFG_FILE}
-          chmod ga+w ${CFG_FILE}
+          chmod ga+w "${CFG_FILE}"
         fi
+
+      if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
 
         # Set permissions
         if [ "${BUILDNUMBER}" -ge "4458" ];  then
@@ -94,6 +103,7 @@ postinst ()
             chown ${USER} ${wizard_calibre_dir:=/volume1/calibre/}/metadata.db
             chmod u+rw ${wizard_calibre_dir:=/volume1/calibre/}/metadata.db            
         fi
+      fi
     fi
 
     exit 0
@@ -106,15 +116,19 @@ preuninst ()
 
 postuninst ()
 {
-    # Remove link
-    rm -f ${INSTALL_DIR}
+    if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
 
-    # Remove open_basedir configuration
-    rm -f /usr/syno/etc/sites-enabled-user/${PACKAGE}.conf
-    rm -f ${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini
-
-    # Remove the web interface
-    rm -fr ${WEB_DIR}/${PACKAGE}
+      # Remove link
+      rm -f ${INSTALL_DIR}
+  
+      # Remove open_basedir configuration
+      rm -f /usr/syno/etc/sites-enabled-user/${PACKAGE}.conf
+      rm -f ${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini
+  
+      # Remove the web interface
+      rm -fr ${WEB_DIR}/${PACKAGE}
+    
+    fi
 
     exit 0
 }
