@@ -22,7 +22,7 @@ BETA=1
 HOMEPAGE   = https://blog.slucas.fr/en/oss/calibre-opds-php-server
 LICENSE    = GPL
 
-REQUIRED_DSM = 6.0
+REQUIRED_MIN_DSM = 6.0
 
 WIZARDS_DIR = src/wizard/
 CONF_DIR = src/conf/
