@@ -27,7 +27,7 @@ REQUIRED_MIN_DSM = 6.0
 WIZARDS_DIR = src/wizard/
 CONF_DIR = src/conf/
 
-INSTALLER_SCRIPT = src/installer.sh
+SERVICE_SETUP = src/service-setup.sh
 STARTABLE = no
 
 INSTALL_DEP_SERVICES = apache-web
