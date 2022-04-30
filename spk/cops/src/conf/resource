@@ -12,6 +12,7 @@
         "backend": 6,
         "extensions": [
           "gd",
+          "pdo_sqlite",
           "sqlite3",
           "intl",
           "zip"
