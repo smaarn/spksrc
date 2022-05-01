@@ -15,7 +15,7 @@ fi
 CFG_FILE="${WEB_DIR}/${SYNOPKG_PKGNAME}/${CFG_FILE_NAME}"
 BUILDNUMBER="$(/bin/get_key_value /etc.defaults/VERSION buildnumber)"
 
-USER="$([ "${BUILDNUMBER}" -ge "4418" ] && echo -n http || echo -n nobody)"
+USER="http"
 PHP_CONFIG_LOCATION="$([ "${BUILDNUMBER}" -ge "7135" ] && echo -n /usr/local/etc/php56/conf.d || echo -n /etc/php/conf.d)"
 SC_GROUP="http"
 
@@ -37,11 +37,7 @@ service_postinst ()
         cp -pR "${SYNOPKG_PKGDEST}/share/${SYNOPKG_PKGNAME}" "${WEB_DIR}"
     
         # Configure open_basedir
-        if [ "${USER}" == "nobody" ]; then
-            echo -e "<Directory \"${WEB_DIR}/${SYNOPKG_PKGNAME}\">\nphp_admin_value open_basedir none\n</Directory>" > /usr/syno/etc/sites-enabled-user/${SYNOPKG_PKGNAME}.conf
-        else
-            echo -e "[PATH=${WEB_DIR}/${SYNOPKG_PKGNAME}]\nopen_basedir = Null" > ${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini
-        fi
+        echo -e "[PATH=${WEB_DIR}/${SYNOPKG_PKGNAME}]\nopen_basedir = Null" > "${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini"
       fi
 
     if [ "${SYNOPKG_PKG_STATUS}" == "INSTALL" ]; then
@@ -57,21 +53,11 @@ service_postinst ()
 
       if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
 
-        # Set permissions
-        if [ "${BUILDNUMBER}" -ge "4458" ];  then
-            # DSM5+
-            # Set permissions on directory structure
-            set_syno_permissions "${wizard_calibre_dir}"
-            # Set permissions on metadata.db
-            if [ ! "`synoacltool -get "${wizard_calibre_dir}/metadata.db"| grep "group:${SC_GROUP}:allow:rwxpdDaARWc."`" ]; then
-                synoacltool -add "${wizard_calibre_dir}/metadata.db" "group:${SC_GROUP}:allow:rwxpdDaARWc:----" > /dev/null 2>&1
-            fi
-        else
-            #DSM4
-            chown ${USER} ${wizard_calibre_dir:=/volume1/calibre/}
-            chmod u+rw ${wizard_calibre_dir:=/volume1/calibre/}
-            chown ${USER} ${wizard_calibre_dir:=/volume1/calibre/}/metadata.db
-            chmod u+rw ${wizard_calibre_dir:=/volume1/calibre/}/metadata.db            
+        # Set permissions on directory structure (DSM 5+)
+        set_syno_permissions "${wizard_calibre_dir}"
+        # Set permissions on metadata.db
+        if [ ! "`synoacltool -get "${wizard_calibre_dir}/metadata.db"| grep "group:${SC_GROUP}:allow:rwxpdDaARWc."`" ]; then
+            synoacltool -add "${wizard_calibre_dir}/metadata.db" "group:${SC_GROUP}:allow:rwxpdDaARWc:----" > /dev/null 2>&1
         fi
       fi
     fi
@@ -85,7 +71,6 @@ service_postuninst ()
       rm -f "${SYNOPKG_PKGDEST}"
   
       # Remove open_basedir configuration
-      rm -f "/usr/syno/etc/sites-enabled-user/${SYNOPKG_PKGNAME}.conf"
       rm -f "${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini"
   
       # Remove the web interface
@@ -101,11 +86,7 @@ service_preupgrade ()
     mkdir -p "${TMP_DIR}/${SYNOPKG_PKGNAME}"
     mv "${CFG_FILE}" "${TMP_DIR}/${SYNOPKG_PKGNAME}/"
     if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
-      if [ "${USER}" == "nobody" ]; then
-          mv "/usr/syno/etc/sites-enabled-user/${SYNOPKG_PKGNAME}.conf" "${TMP_DIR}/${SYNOPKG_PKGNAME}/"
-      else
-          mv "${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini" "${TMP_DIR}/${SYNOPKG_PKGNAME}/"
-      fi
+      mv "${PHP_CONFIG_LOCATION}/${PACKAGE_NAME}.ini" "${TMP_DIR}/${SYNOPKG_PKGNAME}/"
     fi
 }
 
@@ -115,7 +96,6 @@ service_postupgrade ()
       rm -f "${CFG_FILE}"
       mv "${TMP_DIR}/${SYNOPKG_PKGNAME}/${CFG_FILE_NAME}" "${CFG_FILE}"
       if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
-        mv "${TMP_DIR}/${SYNOPKG_PKGNAME}/${SYNOPKG_PKGNAME}.conf" "/usr/syno/etc/sites-enabled-user"
         mv "${TMP_DIR}/${SYNOPKG_PKGNAME}/${PACKAGE_NAME}.ini" "${PHP_CONFIG_LOCATION}/"
       fi
       rm -fr "${TMP_DIR:?}/${SYNOPKG_PKGNAME}"
