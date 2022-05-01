@@ -2,7 +2,7 @@
     "step_title": "COPS configuration",
     "items": [{
         "type": "textfield",
-        "desc": "Calibre directory. WARNING: has to end with a / and never use your web directory",
+        "desc": "Existing Calibre library directory. WARNING: has to end with a / and never use your web directory",
         "subitems": [{
             "key": "wizard_calibre_dir",
             "defaultValue": "/volume1/calibre/",

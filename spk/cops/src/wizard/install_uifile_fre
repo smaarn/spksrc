@@ -2,7 +2,7 @@
     "step_title": "Configuration de COPS",
     "items": [{
         "type": "textfield",
-        "desc": "Répertoire contenant Calibre. Attention : doit se terminer par un / et ne jamais utiliser le répertoire web.",
+        "desc": "Répertoire existant contenant une bibliothèque Calibre. Attention : doit se terminer par un / et ne jamais utiliser le répertoire web.",
         "subitems": [{
             "key": "wizard_calibre_dir",
             "defaultValue": "/volume1/calibre/",
