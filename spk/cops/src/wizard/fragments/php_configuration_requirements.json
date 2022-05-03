@@ -1,4 +1,4 @@
-{
+[{
     "step_title": "PHP Configuration Requirements",
     "items": [
         {
@@ -8,4 +8,4 @@
             "desc": "<ul><li>gd</li><li>intl</li><li>pdo_sqlite</li><li>sqlite3</li></ul>"
         }
     ]
-}
+}]
