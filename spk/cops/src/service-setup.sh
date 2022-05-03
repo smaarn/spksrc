@@ -16,8 +16,8 @@ CFG_FILE="${WEB_DIR}/${SYNOPKG_PKGNAME}/${CFG_FILE_NAME}"
 BUILDNUMBER="$(/bin/get_key_value /etc.defaults/VERSION buildnumber)"
 
 USER="http"
+GROUP="http"
 PHP_CONFIG_LOCATION="$([ "${BUILDNUMBER}" -ge "7135" ] && echo -n /usr/local/etc/php56/conf.d || echo -n /etc/php/conf.d)"
-SC_GROUP="http"
 
 service_preinst ()
 {
@@ -54,10 +54,10 @@ service_postinst ()
       if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
 
         # Set permissions on directory structure (DSM 5+)
-        set_syno_permissions "${wizard_calibre_dir}" "${SC_GROUP}"
+        set_syno_permissions "${wizard_calibre_dir}" "${GROUP}"
         # Set permissions on metadata.db
-        if [ ! "`synoacltool -get "${wizard_calibre_dir}/metadata.db"| grep "group:${SC_GROUP}:allow:rwxpdDaARWc."`" ]; then
-            synoacltool -add "${wizard_calibre_dir}/metadata.db" "group:${SC_GROUP}:allow:rwxpdDaARWc:----" > /dev/null 2>&1
+        if [ ! "`synoacltool -get "${wizard_calibre_dir}/metadata.db"| grep "group:${GROUP}:allow:rwxpdDaARWc."`" ]; then
+            synoacltool -add "${wizard_calibre_dir}/metadata.db" "group:${GROUP}:allow:rwxpdDaARWc:----" > /dev/null 2>&1
         fi
       fi
     fi
