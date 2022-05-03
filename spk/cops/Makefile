@@ -46,8 +46,12 @@ include ../../mk/spksrc.spk.mk
 customizing-wizards: wizards
 ifeq ($(call version_lt, ${TCVERSION}, 7.0),1)
 	@$(MSG) "Adding pre-DSM 7 requirements"
-	jq --slurp "map(.[])" $(WIZARDS_DIR)/install_uifile $(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements.json > $(DSM_WIZARDS_DIR)/install_uifile
-	jq --slurp "map(.[])" $(WIZARDS_DIR)/install_uifile_fre $(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements_fre.json > $(DSM_WIZARDS_DIR)/install_uifile_fre
+	jq --slurp "map(.[])" \
+		$(WIZARDS_DIR)/install_uifile \
+		$(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements.json > $(DSM_WIZARDS_DIR)/install_uifile
+	jq --slurp "map(.[])" \
+		$(WIZARDS_DIR)/install_uifile_fre \
+		$(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements_fre.json > $(DSM_WIZARDS_DIR)/install_uifile_fre
 endif
 
 $(SPK_FILE_NAME): customizing-wizards
