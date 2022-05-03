@@ -54,7 +54,7 @@ service_postinst ()
       if [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
 
         # Set permissions on directory structure (DSM 5+)
-        set_syno_permissions "${wizard_calibre_dir}"
+        set_syno_permissions "${wizard_calibre_dir}" "${SC_GROUP}"
         # Set permissions on metadata.db
         if [ ! "`synoacltool -get "${wizard_calibre_dir}/metadata.db"| grep "group:${SC_GROUP}:allow:rwxpdDaARWc."`" ]; then
             synoacltool -add "${wizard_calibre_dir}/metadata.db" "group:${SC_GROUP}:allow:rwxpdDaARWc:----" > /dev/null 2>&1
