@@ -25,6 +25,7 @@ LICENSE    = GPL
 REQUIRED_MIN_DSM = 6.0
 
 WIZARDS_DIR = src/wizard/
+WIZARDS_FRAGMENTS_DIR = $(WIZARDS_DIR)/fragments
 CONF_DIR = src/conf/
 
 SERVICE_SETUP = src/service-setup.sh
@@ -41,8 +42,19 @@ override ARCH=
 
 include ../../mk/spksrc.spk.mk
 
+.PHONY: customizing-wizards
+customizing-wizards: wizards
+ifeq ($(call version_lt, ${TCVERSION}, 7.0),1)
+	@$(MSG) "Adding pre-DSM 7 requirements"
+	jq --slurp "map(.[])" $(DSM_WIZARDS_DIR)/install_uifile $(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements.json
+	jq --slurp "map(.[])" $(DSM_WIZARDS_DIR)/install_uifile_fre $(WIZARDS_FRAGMENTS_DIR)/php_configuration_requirements_fre.json
+endif
+
+$(SPK_FILE_NAME): customizing-wizards
+
 .PHONY: cops_extra_install
 cops_extra_install:
 	install -m 755 -d $(STAGING_DIR)/app
 	install -m 644 src/app/config $(STAGING_DIR)/app/config
 	install -m 666 src/config_local.php.synology $(STAGING_DIR)/config_local.php.synology
+
