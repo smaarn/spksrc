@@ -37,4 +37,11 @@
              "desc": "<ul><li>gd</li><li>intl</li><li>pdo_sqlite</li><li>sqlite3</li></ul>"
          }
      ]
- }]
+ }, {
+  "step_title": "Attention! DSM Permissions",
+  "items": [
+    {
+       "desc": "Les autorisations sont gérées avec le groupe <b>http</b> dans DSM.<br>Le groupe 'utilisateurs' n'est plus utilisé à partir de DSM 6.<br>L'utilisateur du paquet (= sc-cops) n'apparaîtra pas sur la plupart des paramètres d'interface utilisateur. Y compris ce qui suit: <br>- Afficheur d'autorisation de privilège d'application <br>- Sélecteur d'utilisateur chroot FPT <br>- File Stations's- Changer de propriétaire <br>- Shared Links Manager -> Activer le partage sécurisé <br><br>Les seules exceptions sont: <br>- Panneau de configuration> Dossier partagé> Edition> Autorisation> Utilisateur interne du système <br>- Éditeur ACL"
+    }
+  ]
+}]
