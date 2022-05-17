@@ -8,6 +8,7 @@ SPK_ICON = src/bazarr.png
 BUILD_DEPENDS = cross/python310
 
 DEPENDS = cross/$(SPK_NAME)
+DEPENDS += cross/lxml
 DEPENDS += cross/unrar
 
 SPK_DEPENDS = "python310:ffmpeg"
