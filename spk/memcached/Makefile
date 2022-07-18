@@ -7,7 +7,9 @@ DSM_UI_DIR = app
 DEPENDS = cross/phpmemcachedadmin cross/$(SPK_NAME)
 OPTIONAL_DEPENDS = cross/busybox
 
-ifeq ($(call version_lt, ${TCVERSION}, 7.0),1)
+include ../../mk/spksrc.common.mk
+
+ifeq ($(call version_lt, $(TCVERSION), 7.0),1)
 DEPENDS += cross/busybox
 BUSYBOX_CONFIG = usrmng
 ENV += BUSYBOX_CONFIG="$(BUSYBOX_CONFIG)"
