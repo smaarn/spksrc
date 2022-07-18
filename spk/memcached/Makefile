@@ -5,6 +5,11 @@ SPK_ICON = src/memcached.png
 DSM_UI_DIR = app
 
 DEPENDS = cross/phpmemcachedadmin cross/$(SPK_NAME)
+OPTIONAL_DEPENDS = cross/busybox
+
+ifeq ($(call version_lt, ${TCVERSION}, 7.0),1)
+DEPENDS += cross/busybox
+endif
 
 MAINTAINER = Diaoul
 DESCRIPTION = Free \& open source, high-performance, distributed memory object caching system, generic in nature, but intended for use in speeding up dynamic web applications by alleviating database load. It comes with phpMemcachedAdmin, a graphic stand-alone administration for memcached to monitor and debug purpose.
